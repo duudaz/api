@@ -1,0 +1,381 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>MARIA MAKEUP</title>
+
+  <!-- Bootstrap CSS -->
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet">
+  
+  <!-- Fonte Google -->
+  <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;700&display=swap" rel="stylesheet">
+  
+  <!-- Custom CSS -->
+  <style>
+    html, body {
+      height: 100%;
+      margin: 0;
+      font-family: 'Montserrat', sans-serif;
+      background-color: #f4f4f4; /* Fundo cinza claro */
+    }
+
+    body {
+      display: flex;
+      flex-direction: column;
+      min-height: 100vh;
+    }
+
+    .navbar {
+      background-color: #000; /* Preto */
+      z-index: 100;
+    }
+
+    .navbar-brand {
+      font-size: 1.5rem;
+      font-weight: 700; 
+      color: #fff; /* Letras brancas */
+    }
+
+    .navbar-nav .nav-link {
+      color: #fff; /* Letras brancas */
+      font-weight: 500; /* Negrito */
+      margin-right: 15px;
+    }
+
+    .navbar-nav .nav-link:hover {
+      color: #A9A9A9; /* Cinza escuro ao passar o mouse */
+    }
+
+    .content {
+      flex: 1;
+      padding: 60px 30px;
+    }
+
+    h1 {
+      text-align: center;
+      margin-bottom: 40px;
+      font-size: 2.5rem; 
+      color: #000; /* Cor do título para preto */
+      font-weight: bold; /* Título em negrito */
+      animation: fadeIn 1s; /* Animação de entrada */
+    }
+
+    .btn-primary {
+      display: block;
+      margin: 0 auto 30px auto;
+      padding: 10px 30px;
+      border-radius: 25px;
+      background-color: #ff007f; /* Rosa */
+      border: none; /* Remover borda */
+      color: white; /* Cor do texto no botão */
+      transition: background-color 0.3s, transform 0.2s; /* Animação no botão */
+    }
+
+    .btn-primary:hover {
+      background-color: #ff4f7b; /* Cor ao passar o mouse */
+      transform: scale(1.05); /* Efeito de aumentar no hover */
+    }
+
+    .products-list {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+      gap: 20px;
+      animation: fadeIn 0.5s; /* Animação de fade-in */
+    }
+
+    .product {
+      border-radius: 10px;
+      padding: 15px;
+      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+      background-color: #f5f5dc; /* Cor bege */
+      border: 1px solid #ddd; /* Borda cinza */
+      transition: transform 0.3s; 
+      cursor: pointer; /* Indica que o item é clicável */
+    }
+
+    .product:hover {
+      transform: translateY(-5px); /* Efeito de elevação ao passar o mouse */
+      box-shadow: 0 6px 12px rgba(0, 0, 0, 0.3); /* Sombra mais forte ao passar o mouse */
+    }
+
+    .product h4 {
+      color: #800000; /* Vermelho vinho */
+      margin-top: 10px; /* Margem superior */
+      font-size: 1.2rem; /* Tamanho da fonte */
+      font-weight: bold; /* Título em negrito */
+    }
+
+    .product p {
+      margin: 5px 0; /* Margens verticais */
+      color: #000; /* Cor do texto */
+    }
+
+    @keyframes fadeIn {
+      from { opacity: 0; }
+      to { opacity: 1; }
+    }
+
+    .footer {
+      background-color: #000; /* Preto */
+      color: #fff; 
+      text-align: center;
+      padding: 10px; /* Rodapé mais fino */
+      font-size: 14px; 
+      font-size: 600; 
+      margin-top: auto; 
+      position: fixed; /* Rodapé fixo */
+      bottom: 0;
+      width: 100%;
+    }
+
+    /* Estilo do título "Detalhes do Produto" */
+    #productModalLabel {
+      color: #800000; /* Vermelho vinho */
+      font-weight: bold; /* Negrito */
+    }
+
+    /* Estilo do nome do produto no modal */
+    #modalProductDetails h4 {
+      font-weight: bold; /* Negrito */
+      text-decoration: underline; /* Sublinhado */
+      text-align: center; /* Centralizar o nome do produto */
+    }
+
+    /* Estilo da descrição dentro de uma caixa */
+    #modalProductDetails p {
+      border: 2px solid #800000; /* Borda na cor vinho */
+      padding: 10px;
+      background-color: #f9f9f9; /* Fundo claro */
+      display: inline-block;
+      width: 100%; /* Caixa ocupando toda a largura */
+    }
+
+    /* Estilo do botão fechar */
+    .btn-close {
+      background-color: #ff007f; /* Rosa */
+      color: white; /* Cor do texto */
+      border: none; /* Remover borda */
+    }
+
+    .btn-close:hover {
+      background-color: #ff4f7b; /* Cor ao passar o mouse */
+    }
+
+    /* Estilo para rótulos de preço */
+    .form-label {
+      color: rgb(57, 57, 57); /* Cor cinza */
+      font-weight: bold; /* Negrito */
+    }
+  </style>
+</head>
+<body>
+
+ <!-- Menu Principal -->
+ <nav class="navbar navbar-expand-lg navbar-light">
+  <div class="container">
+    <a class="navbar-brand" href="#">MARIA MAKEUP</a>
+    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse" id="navbarNav">
+      <ul class="navbar-nav ms-auto">
+        <li class="nav-item">
+          <a class="nav-link" href="index.html">HOME</a> <!-- Corrigido para linkar para a página inicial -->
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="contato.html">CONTATO</a> <!-- Corrigido para linkar para a página de contato -->
+        </li>
+        <li class="nav-item dropdown">
+          <a class="nav-link dropdown-toggle" href="#" id="servicosDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+            PRODUTOS
+          </a>
+          <ul class="dropdown-menu" aria-labelledby="servicosDropdown">
+            <li><a class="dropdown-item" href="produto1.html">Buscar por marca</a></li>
+            <li><a class="dropdown-item" href="produto2.html">Buscar por categoria</a></li>
+            <li><a class="dropdown-item" href="produto3.html">Buscar por preço</a></li>
+          </ul>
+        </li>
+      </ul>
+    </div>
+  </div>
+</nav>
+
+  <!-- Conteúdo Principal -->
+  <div class="content" id="productContainer">
+    <h1>PRODUTOS POR PREÇO</h1>
+    
+    <!-- Seletor de preço -->
+    <div class="text-center mb-4">
+      <label for="minPrice" class="form-label">Preço Mínimo:</label>
+      <input type="number" id="minPrice" class="form-control" placeholder="R$ 0" style="width: 300px; margin: 0 auto;" min="0">
+    </div>
+    
+    <div class="text-center mb-4">
+      <label for="maxPrice" class="form-label">Preço Máximo:</label>
+      <input type="number" id="maxPrice" class="form-control" placeholder="R$ 100" style="width: 300px; margin: 0 auto;" min="0">
+    </div>
+
+    <div class="text-center mb-4">
+      <button id="loadProducts" class="btn btn-primary">Carregar Produtos</button>
+    </div>
+
+    <div class="text-center mb-4">
+      <button id="showLogs" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal">Ver Logs</button>
+    </div>
+    
+    <div id="productsList" class="products-list"></div>
+  </div>
+
+  <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-lg">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h1 class="modal-title fs-5" id="exampleModalLabel">Modal title</h1>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body">
+          <table class="table table-hover table-striped">
+            <thead class="table-dark">
+              <tr>
+                <th scope="col" class="px-3 py-2">ID</th>
+                <th scope="col" class="px-3 py-2">Log</th>
+                <th scope="col" class="px-3 py-2">API</th>
+                <th scope="col" class="px-3 py-2">Método</th>
+                <th scope="col" class="px-3 py-2">Resultado</th>
+                <th scope="col" class="px-3 py-2">Ação</th>
+              </tr>
+            </thead>
+            <tbody id="logs"></tbody> 
+          </table>
+        </div>
+      </div>
+    </div>
+  </div>
+  <!-- Modal para Detalhes do Produto -->
+  <div class="modal fade" id="productModal" tabindex="-1" aria-labelledby="productModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-lg">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="productModalLabel">DETALHES DO PRODUTO</h5>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Fechar"></button>
+        </div>
+        <div class="modal-body" id="modalProductDetails">
+          <h4 id="modalProductName"></h4>
+          <p id="modalProductDescription"></p>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Rodapé -->
+  <footer class="footer">
+    <p>© 2024 Maria Eduarda Rodrigues <br> Sistemas de Informação</p>
+  </footer>
+
+  <!-- Bootstrap JS -->
+  <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.6/dist/umd/popper.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.min.js"></script>
+  
+  <!-- jQuery -->
+  <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+
+  <!-- Script para Carregar Produtos -->
+  <script>
+    let matricula = '435012';
+
+    $('#loadProducts').click(function () {
+        let minPrice = $('#minPrice').val();
+        let maxPrice = $('#maxPrice').val();
+
+        let url = `https://makeup-api.herokuapp.com/api/v1/products.json?price_gte=${minPrice}&price_lte=${maxPrice}`;
+
+        $.get(url)
+            .done(function (data) {
+                $('#productsList').empty(); // Limpar a lista de produtos
+
+                let quantidade = data.length;
+
+                // Chamar a função de inserir log somente após a resposta completa
+                inserirLogs(quantidade);
+
+                data.forEach(product => {
+                    let productCard = `
+                      <div class="product" data-bs-toggle="modal" data-bs-target="#productModal">
+                        <h4>${product.name}</h4>
+                        <p><strong>Marca:</strong> ${product.brand}</p>
+                        <p><strong>Preço:</strong> R$ ${product.price ? product.price : 'Preço não disponível'}</p>
+                      </div>
+                    `;
+                    $('#productsList').append(productCard);
+                });
+
+                // Adiciona evento de clique para abrir o modal
+                $('.product').click(function () {
+                    let productName = $(this).find('h4').text();
+                    let productData = data.find(p => p.name === productName);
+                    let productDescription = productData?.description || 'Descrição não disponível.';
+
+                    $('#modalProductName').text(productName);
+                    $('#modalProductDescription').text(productDescription);
+                });
+            })
+            .fail(function () {
+                alert('Erro ao carregar produtos. Tente novamente mais tarde.');
+            });
+    });
+
+    function inserirLogs(quantidade) {
+        const apiLogs = `https://www.piway.com.br/unoesc/api/inserir/log/${matricula}/swapi/produtosporpreco/${quantidade}`;
+        fetch(apiLogs)
+            .then(response => response.json())
+            .then(data => {
+                console.log('Log inserido:', data);
+                exibirLogs();
+            })
+            .catch(error => console.error('Erro ao inserir log:', error));
+    }
+
+    function exibirLogs() {
+        const api = `https://www.piway.com.br/unoesc/api/logs/${matricula}`;
+        fetch(api)
+            .then(response => response.json())
+            .then(data => {
+                const logs = document.getElementById('logs');
+                logs.innerHTML = '';
+
+                data.forEach(log => {
+                    const row = document.createElement('tr');
+                    row.className = 'table-light border-bottom'; // Classes Bootstrap
+                    row.innerHTML = `
+                      <td class="px-3 py-2">${log.idlog}</td>
+                      <td class="px-3 py-2">${log.log}</td>
+                      <td class="px-3 py-2">${log.api}</td>
+                      <td class="px-3 py-2">${log.metodo}</td>
+                      <td class="px-3 py-2">${log.resultado}</td>
+                      <td class="px-3 py-2">
+                        <button type="button" onclick="deleteLog(${log.idlog})" class="btn btn-danger btn-sm d-inline-flex align-items-center">
+                          <i class="bi bi-trash me-2"></i>Lixeira
+                        </button>
+                      </td>
+                    `;
+                    logs.appendChild(row);
+                });
+            })
+            .catch(error => console.error('Erro ao exibir logs:', error));
+    }
+
+    function deleteLog(idlog) {
+        const api = `https://www.piway.com.br/unoesc/api/excluir/log/${idlog}/aluno/${matricula}`;
+        fetch(api)
+            .then(() => exibirLogs())
+            .catch(error => console.error('Erro ao excluir log:', error));
+    }
+
+
+
+
+
+  </script>
+</body>
+</html>

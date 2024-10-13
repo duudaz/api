@@ -1,0 +1,303 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>MARIA MAKEUP</title>
+
+  <!-- Bootstrap CSS -->
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet">
+  
+  <!-- Fonte Google -->
+  <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;700&display=swap" rel="stylesheet">
+  
+  <!-- Custom CSS -->
+  <style>
+    html, body {
+      height: 100%;
+      margin: 0;
+      font-family: 'Montserrat', sans-serif;
+      background-color: #f4f4f4;
+    }
+    body {
+      display: flex;
+      flex-direction: column;
+      min-height: 100vh;
+    }
+    .navbar {
+      background-color: #000;
+    }
+    .navbar-brand {
+      font-size: 1.5rem;
+      font-weight: 700; 
+      color: #fff;
+    }
+    .navbar-nav .nav-link {
+      color: #fff;
+      font-weight: 500;
+      margin-right: 15px;
+    }
+    .content {
+      flex: 1;
+      padding: 60px 30px;
+    }
+    h1 {
+      text-align: center;
+      margin-bottom: 40px;
+      font-size: 2.5rem; 
+      color: #000;
+      font-weight: bold;
+    }
+    .btn-primary {
+      display: block;
+      margin: 0 auto 10px; /* Distância entre os botões */
+      padding: 10px 30px;
+      border-radius: 25px;
+      background-color: #ff007f;
+      border: none;
+      color: white;
+      transition: background-color 0.3s, transform 0.2s;
+    }
+    .btn-primary:hover {
+      background-color: #ff4f7b;
+      transform: scale(1.05);
+    }
+    .btn-secondary {
+      display: block;
+      margin: 10px auto 0; /* Espaçamento entre os botões */
+      padding: 10px 30px;
+      border-radius: 25px;
+      background-color: #6f42c1; /* Cor roxa */
+      border: none;
+      color: white;
+      transition: background-color 0.3s, transform 0.2s;
+    }
+    .btn-secondary:hover {
+      background-color: #845ef7; /* Tom mais claro ao passar o mouse */
+      transform: scale(1.05);
+    }
+    .products-list {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+      gap: 20px;
+    }
+    .product {
+      border-radius: 10px;
+      padding: 15px;
+      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+      cursor: pointer;
+      background: linear-gradient(135deg, #ffeef8 0%, #ffe1f2 100%);
+    }
+    .product img {
+      max-width: 100%; 
+      height: auto;
+      border-radius: 5px;
+    }
+    .product h4 {
+      color: #800000;
+      margin-top: 10px;
+      font-size: 1.2rem;
+      font-weight: bold;
+    }
+    .product p {
+      color: #000;
+    }
+    .footer {
+      background-color: #000;
+      color: #fff;
+      text-align: center;
+      padding: 10px;
+      font-size: 14px;
+      margin-top: auto;
+    }
+  </style>
+</head>
+<body>
+  <!-- Menu Principal -->
+  <nav class="navbar navbar-expand-lg navbar-light">
+    <div class="container">
+      <a class="navbar-brand" href="#">MARIA MAKEUP</a>
+      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      <div class="collapse navbar-collapse" id="navbarNav">
+        <ul class="navbar-nav ms-auto">
+          <li class="nav-item">
+            <a class="nav-link" href="index.html">HOME</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="contato.html">CONTATO</a>
+          </li>
+          <li class="nav-item dropdown">
+            <a class="nav-link dropdown-toggle" href="#" id="servicosDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+              PRODUTOS
+            </a>
+            <ul class="dropdown-menu" aria-labelledby="servicosDropdown">
+              <li><a class="dropdown-item" href="produto1.html">Buscar por marca</a></li>
+              <li><a class="dropdown-item" href="produto2.html">Buscar por categoria</a></li>
+              <li><a class="dropdown-item" href="produto3.html">Buscar por preço</a></li>
+            </ul>
+          </li>
+        </ul>
+      </div>
+    </div>
+  </nav>
+
+  <!-- Conteúdo Principal -->
+  <div class="content" id="productContainer">
+    <h1>PRODUTOS POR MARCA</h1>
+    <button id="loadProducts" class="btn btn-primary">Carregar Produtos</button>
+    <button id="showLogs" class="btn btn-secondary">Exibir Logs</button> <!-- Mantido fixo logo após -->
+    <div id="productsList" class="products-list"></div>
+  </div>
+
+  <!-- Modal para Exibir Logs -->
+  <div class="modal fade" id="logsModal" tabindex="-1" aria-labelledby="logsModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-lg">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="logsModalLabel">LOGS REGISTRADOS</h5>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body">
+          <ul id="logsList" class="list-group"></ul>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Fechar</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Rodapé -->
+  <footer class="footer">
+    <p class="mb-0">© 2024 Maria Eduarda Rodrigues <br> Sistemas de Informação</p>
+  </footer>
+
+  <!-- Bootstrap JS -->
+  <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.6/dist/umd/popper.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.min.js"></script>
+
+  <script>
+    const matricula = '435012'; // Substitua pelo seu número de matrícula
+    let produtosCarregados = 0; // Variável para contar produtos carregados
+
+    // Função para buscar produtos da API de maquiagem
+    async function fetchMakeupProducts(brand) {
+      try {
+        const response = await fetch(`https://makeup-api.herokuapp.com/api/v1/products.json?brand=${brand}`);
+        if (!response.ok) {
+          throw new Error('Erro ao buscar os produtos.');
+        }
+        const products = await response.json();
+        return products;
+      } catch (error) {
+        console.error('Erro ao carregar produtos:', error);
+        return [];
+      }
+    }
+
+    // Função para registrar um log na API de controle de logs
+    async function logProductLoad(count) {
+      const resultado = `${count} produto${count > 1 ? 's' : ''} carregado${count > 1 ? 's' : ''}`;
+      try {
+        await fetch(`https://www.piway.com.br/unoesc/api/inserir/log/${matricula}/makeup-api/marcas/${resultado}`);
+      } catch (error) {
+        console.error('Erro ao registrar o log:', error);
+      }
+    }
+
+    // Função para buscar logs da API de controle de logs
+    async function fetchLogs() {
+      try {
+        const response = await fetch(`https://www.piway.com.br/unoesc/api/logs/${matricula}`);
+        if (!response.ok) {
+          throw new Error('Erro ao buscar os logs.');
+        }
+        const logs = await response.json();
+        return logs;
+      } catch (error) {
+        console.error('Erro ao carregar logs:', error);
+        return [];
+      }
+    }
+
+    // Função para excluir um log (Você pode implementar a lógica de exclusão na API)
+    async function deleteLog(logId) {
+      try {
+        // Chama a API de exclusão
+        const apiLogs = `https://www.piway.com.br/unoesc/api/excluir/log/${logId}/aluno/${matricula}`;
+        const response = await fetch(apiLogs);
+
+        if (!response.ok) {
+          throw new Error('Erro ao excluir o log.');
+        }
+
+      // Após a exclusão, recarregar a lista de logs
+      await showLogs(); // Somente recarrega os logs após garantir que a exclusão foi concluída
+    } catch (error) {
+      console.error('Erro ao excluir o log:', error);
+    }
+  }
+
+    // Função para carregar os produtos e registrar o log
+    async function loadProducts() {
+      const productsList = document.getElementById('productsList');
+      productsList.innerHTML = ''; // Limpar a lista de produtos
+
+      const products = await fetchMakeupProducts('maybelline');
+      products.forEach(product => {
+        const productDiv = document.createElement('div');
+        productDiv.classList.add('product');
+        productDiv.innerHTML = `
+          <img src="${product.image_link}" alt="${product.name}">
+          <h4>${product.name}</h4>
+          <p><strong>Marca:</strong> ${product.brand}</p>
+          <p><strong>Preço:</strong> R$ ${product.price ? product.price : 'Preço não disponível'}</p>
+        `;
+        productsList.appendChild(productDiv);
+      });
+
+      // Atualizar a contagem de produtos carregados e registrar o log
+      produtosCarregados += products.length;
+      await logProductLoad(produtosCarregados);
+    }
+
+    // Função para exibir os logs em um modal
+    // Função para exibir os logs em um modal
+  async function showLogs() {
+    const logsList = document.getElementById('logsList');
+    logsList.innerHTML = ''; // Limpar a lista de logs
+
+    const logs = await fetchLogs();
+    if (logs.length === 0) {
+      const noLogsItem = document.createElement('li');
+      noLogsItem.classList.add('list-group-item');
+      noLogsItem.textContent = 'Nenhum log registrado até o momento.';
+      logsList.appendChild(noLogsItem);
+    } else {
+      logs.forEach((log) => {
+        const logItem = document.createElement('li');
+        logItem.classList.add('list-group-item');
+        logItem.innerHTML = `
+          ${log.idlog} - ${log.log} - ${log.api} - ${log.metodo} - ${log.resultado}
+          <button class="btn btn-danger btn-sm float-end" onclick="deleteLog(${log.idlog})">Excluir</button>
+        `;
+        logsList.appendChild(logItem);
+      });
+    }
+
+    // Atualiza o modal apenas após carregar e atualizar a lista de logs
+    const logsModal = new bootstrap.Modal(document.getElementById('logsModal'));
+    logsModal.show();
+  }
+
+    // Event listener para carregar produtos
+    document.getElementById('loadProducts').addEventListener('click', loadProducts);
+
+    // Event listener para exibir logs
+    document.getElementById('showLogs').addEventListener('click', showLogs);
+
+  </script>
+</body>
+</html>
